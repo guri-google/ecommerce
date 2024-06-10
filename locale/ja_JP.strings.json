@@ -391,5 +391,9 @@
 "Currently Active Customer (Yes/No)": "現在アクティブな顧客 (はい/いいえ)",
 "Users Facts": "ユーザー情報",
 "Repeat Purchase Rate": "リピート購入率",
-"Orders This Year": "今年の注文数"
+"Orders This Year": "今年の注文数",
+"Created Date": "作成日",
+"Returned Date": "返品日",
+"Shipped Date": "出荷日",
+"Delivered Date": "配送日"
 }
