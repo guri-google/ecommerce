@@ -1,5 +1,3 @@
-include: "/models/*.model"
-
 test: historic_revenue_is_accurate {
 explore_source: order_items {
   column: total_sale_price {
