@@ -184,6 +184,7 @@ view: users {
   ## Other User Information ##
 
   dimension_group: created {
+    hidden: yes
     label: "Created"
     type: time
 #     timeframes: [time, date, week, month, raw]
