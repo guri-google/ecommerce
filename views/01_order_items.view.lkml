@@ -388,48 +388,6 @@ view: order_items {
   }
 
 
-########## Repeat Purchase Facts ##########
-
-  dimension: days_until_next_order {
-    label: "Days Until Next Order"
-    type: number
-    view_label: "Repeat Purchase Facts"
-    sql: TIMESTAMP_DIFF(${created_raw},${repeat_purchase_facts.next_order_raw}, DAY) ;;
-  }
-
-  dimension: repeat_orders_within_30d {
-    label: "Repeat Orders within 30 Days"
-    type: yesno
-    view_label: "Repeat Purchase Facts"
-    sql: ${days_until_next_order} <= 30 ;;
-  }
-
-  dimension: repeat_orders_within_15d{
-    label: "Repeat Orders within 15 Days"
-    type: yesno
-    sql:  ${days_until_next_order} <= 15;;
-  }
-
-  measure: count_with_repeat_purchase_within_30d {
-    label: "Count with Repeat Purchase within 30 Days"
-    type: count_distinct
-    sql: ${id} ;;
-    view_label: "Repeat Purchase Facts"
-
-    filters: {
-      field: repeat_orders_within_30d
-      value: "Yes"
-    }
-  }
-
-  measure: 30_day_repeat_purchase_rate {
-    description: "The percentage of customers who purchase again within 30 days"
-    view_label: "Repeat Purchase Facts"
-    type: number
-    value_format_name: percent_1
-    sql: 1.0 * ${count_with_repeat_purchase_within_30d} / (CASE WHEN ${count} = 0 THEN NULL ELSE ${count} END) ;;
-    drill_fields: [products.brand, order_count, count_with_repeat_purchase_within_30d]
-  }
 
 ########## Dynamic Sales Cohort App ##########
 

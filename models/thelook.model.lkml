@@ -55,12 +55,12 @@ explore: order_items {
     sql_on: ${products.id} = ${inventory_items.product_id} ;;
   }
 
-  join: repeat_purchase_facts {
-    view_label: "Repeat Purchase Facts"
-    relationship: many_to_one
-    type: full_outer
-    sql_on: ${order_items.order_id} = ${repeat_purchase_facts.order_id} ;;
-  }
+#  join: repeat_purchase_facts {
+#    view_label: "Repeat Purchase Facts"
+#    relationship: many_to_one
+#    type: full_outer
+#   sql_on: ${order_items.order_id} = ${repeat_purchase_facts.order_id} ;;
+#  }
 
   join: distribution_centers {
     view_label: "Distribution Center"
