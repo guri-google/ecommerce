@@ -4,16 +4,14 @@ view: inventory_items {
   ## DIMENSIONS ##
 
   dimension: id {
-    label: 在庫ID (Inventory ID)
-    description: 個別の在庫アイテムID
+    label: "ID"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
   }
 
   dimension: cost {
-    label: 仕入原価 (Cost)
-    description: 商品の仕入原価金額
+    label: "Cost"
     type: number
     value_format_name: usd
     sql: ${TABLE}.cost ;;
@@ -43,8 +41,7 @@ view: inventory_items {
   }
 
   dimension: is_sold {
-    label: 販売済フラグ (Is Sold)
-    description: 売約・販売済みかどうか
+    label: "Is Sold"
     type: yesno
     sql: ${sold_raw} is not null ;;
   }
@@ -106,8 +103,7 @@ view: inventory_items {
   }
 
   measure: total_cost {
-    label: 総仕入原価 (Total Cost)
-    description: 全在庫アイテムの原価合計
+    label: "Total Cost"
     type: sum
     value_format_name: usd
     sql: ${cost} ;;
@@ -121,8 +117,7 @@ view: inventory_items {
   }
 
   measure: count {
-    label: 在庫数量 (Inventory Count)
-    description: 在庫アイテムの総数
+    label: "Count"
     type: count
     drill_fields: [detail*]
   }

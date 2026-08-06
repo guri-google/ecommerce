@@ -4,16 +4,14 @@ view: products {
   ### DIMENSIONS ###
 
   dimension: id {
-    label: 商品ID (Product ID)
-    description: 商品のユニークID
+    label: "ID"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
   }
 
   dimension: category {
-    label: 商品カテゴリ (Category)
-    description: 大分類の商品カテゴリ名
+    label: "Category"
     sql: TRIM(${TABLE}.category) ;;
     drill_fields: [products.brand,order_items.total_sale_price]
     link: {
@@ -23,15 +21,13 @@ view: products {
   }
 
   dimension: item_name {
-    label: 商品名 (Item Name)
-    description: 商品の正式名称
+    label: "Item Name"
     sql: TRIM(${TABLE}.name) ;;
     drill_fields: [id]
   }
 
   dimension: brand {
-    label: ブランド名 (Brand)
-    description: 商品のブランド名
+    label: "Brand"
     sql: TRIM(${TABLE}.brand) ;;
     link: {
       label: "Website"
@@ -126,8 +122,7 @@ view: products {
   }
 
   dimension: retail_price {
-    label: 標準販売価格 (Retail Price)
-    description: 商品の標準定価・販売価格
+    label: "Retail Price"
     type: number
     sql: ${TABLE}.retail_price ;;
     action: {
@@ -181,14 +176,12 @@ view: products {
   }
 
   dimension: department {
-    label: 部門 (Department)
-    description: 対象の部門・デパートメント
+    label: "Department"
     sql: TRIM(${TABLE}.department) ;;
   }
 
   dimension: sku {
-    label: SKUコード
-    description: 在庫最小管理単位コード
+    label: "SKU"
     sql: ${TABLE}.sku ;;
   }
 
@@ -201,8 +194,7 @@ view: products {
   ## MEASURES ##
 
   measure: count {
-    label: 商品点数 (Product Count)
-    description: 登録商品の総アイテム数
+    label: "Count"
     type: count
     drill_fields: [detail*]
   }

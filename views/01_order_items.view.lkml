@@ -265,24 +265,21 @@ view: order_items {
 ########## Financial Information ##########
 
   dimension: sale_price {
-    label: "売上単価 (Sale Price)"
-    description: "商品1点あたりの販売価格。控除前単価。"
+    label: "Sale Price"
     type: number
     value_format_name: usd
     sql: ${TABLE}.sale_price ;;
   }
 
   dimension: gross_margin {
-    label: "粗利益 (Gross Margin)"
-    description: "売上高から仕入原価（コスト）を差し引いた利益額。"
+    label: "Gross Margin"
     type: number
     value_format_name: usd
     sql: ${sale_price} - ${inventory_items.cost};;
   }
 
   dimension: item_gross_margin_percentage {
-    label: "商品粗利率 (Item Gross Margin %)"
-    description: "売上高に対する粗利益の割合。"
+    label: "Item Gross Margin Percentage"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${gross_margin}/NULLIF(${sale_price},0) ;;
@@ -297,8 +294,7 @@ view: order_items {
   }
 
   measure: total_sale_price {
-    label: "総売上高 (Total Sale Price)"
-    description: "控除を行っていない売上の合計額。"
+    label: "Total Sale Price"
     type: sum
     value_format_name: usd
     sql: ${sale_price} ;;
@@ -306,8 +302,7 @@ view: order_items {
   }
 
   measure: total_gross_margin {
-    label: "総粗利益 (Total Gross Margin)"
-    description: "総売上高から総原価を差し引いた全体の粗利益合計。"
+    label: "Total Gross Margin"
     type: sum
     value_format_name: usd
     sql: ${gross_margin} ;;
@@ -340,8 +335,7 @@ view: order_items {
   }
 
   measure: total_gross_margin_percentage {
-    label: "全体粗利率 (Total Gross Margin %)"
-    description: "総売上高に対する総粗利益の比率。"
+    label: "Total Gross Margin Percentage"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${total_gross_margin}/ nullif(${total_sale_price},0) ;;
@@ -358,15 +352,13 @@ view: order_items {
 ########## Return Information ##########
 
   dimension: is_returned {
-    label: "返品フラグ (Is Returned)"
-    description: "商品が返品されたかどうかを示すフラグ。"
+    label: "Is Returned"
     type: yesno
     sql: ${returned_raw} IS NOT NULL ;;
   }
 
   measure: returned_count {
-    label: "返品件数 (Returned Count)"
-    description: "返品処理されたアイテムの総件数。"
+    label: "Returned Count"
     type: count_distinct
     sql: ${id} ;;
     filters: {
@@ -388,8 +380,7 @@ view: order_items {
   }
 
   measure: return_rate {
-    label: "返品率 (Return Rate)"
-    description: "全注文数に対する返品件数の発生割合。"
+    label: "Return Rate"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${returned_count} / nullif(${count},0) ;;
