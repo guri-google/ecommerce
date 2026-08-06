@@ -17,7 +17,8 @@ view: user_order_facts {
   }
 
   dimension: user_id {
-    label: "User ID"
+    label: ユーザーID
+    description: ユーザーの識別ID
     primary_key: yes
     hidden: yes
     sql: ${TABLE}.user_id ;;
@@ -65,7 +66,8 @@ view: user_order_facts {
   ##### Lifetime Behavior - Order Counts ######
 
   dimension: lifetime_orders {
-    label: "Lifetime Orders"
+    label: 累計注文回数 (Lifetime Orders)
+    description: ユーザーの通算注文回数
     type: number
     sql: ${TABLE}.lifetime_orders ;;
   }
@@ -101,7 +103,8 @@ view: user_order_facts {
   ##### Lifetime Behavior - Revenue ######
 
   dimension: lifetime_revenue {
-    label: "Lifetime Revenue"
+    label: 累計購入金額 (LTV)
+    description: ユーザーの通算売上金額 (LTV)
     type: number
     value_format_name: usd
     sql: ${TABLE}.lifetime_revenue ;;

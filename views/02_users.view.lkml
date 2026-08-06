@@ -4,7 +4,8 @@ view: users {
   ## Demographics ##
 
   dimension: id {
-    label: "ID"
+    label: ID
+    description: ユーザー識別ID
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -25,24 +26,28 @@ view: users {
   }
 
   dimension: name {
-    label: "Name"
+    label: 氏名 (Name)
+    description: ユーザーのフルネーム
     sql: concat(${first_name}, ' ', ${last_name}) ;;
   }
 
   dimension: age {
-    label: "Age"
+    label: 年齢 (Age)
+    description: ユーザーの年齢
     type: number
     sql: ${TABLE}.age ;;
   }
 
   dimension: over_21 {
-    label: "Over 21"
+    label: 21歳以上フラグ (Over 21)
+    description: 21歳以上かどうかを示す判定
     type: yesno
     sql:  ${age} > 21;;
   }
 
   dimension: age_tier {
-    label: "Age Tier"
+    label: 年齢層区分 (Age Tier)
+    description: 年齢の10歳刻み区分
     type: tier
     tiers: [0, 10, 20, 30, 40, 50, 60, 70]
     style: integer
@@ -50,7 +55,8 @@ view: users {
   }
 
   dimension: gender {
-    label: "Gender"
+    label: 性別 (Gender)
+    description: ユーザーの性別
     sql: ${TABLE}.gender ;;
   }
 
@@ -66,7 +72,8 @@ view: users {
   }
 
   dimension: email {
-    label: "Email"
+    label: メールアドレス (Email)
+    description: ユーザーの連絡先メールアドレス
     sql: ${TABLE}.email ;;
     tags: ["email"]
 
@@ -113,20 +120,23 @@ view: users {
   ## Demographics ##
 
   dimension: city {
-    label: "City"
+    label: 市区町村 (City)
+    description: 居住都市名
     sql: ${TABLE}.city ;;
     drill_fields: [zip]
   }
 
   dimension: state {
-    label: "State"
+    label: 都道府県・州 (State)
+    description: 居住都道府県または州名
     sql: ${TABLE}.state ;;
     map_layer_name: us_states
     drill_fields: [zip, city]
   }
 
   dimension: zip {
-    label: "Zip"
+    label: 郵便番号 (Zip)
+    description: 居住地の郵便番号
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
@@ -139,7 +149,8 @@ view: users {
   }
 
   dimension: country {
-    label: "Country"
+    label: 国 (Country)
+    description: 居住国名
     map_layer_name: countries
     drill_fields: [state, city]
     sql: CASE WHEN ${TABLE}.country = 'UK' THEN 'United Kingdom'
@@ -199,7 +210,8 @@ view: users {
   }
 
   dimension: traffic_source {
-    label: "Traffic Source"
+    label: 流入元チャネル (Traffic Source)
+    description: ユーザー獲得の流入元チャネル
     sql: ${TABLE}.traffic_source ;;
   }
 
@@ -224,20 +236,23 @@ view: users {
   ## MEASURES ##
 
   measure: count {
-    label: "Count"
+    label: ユーザー数 (Count)
+    description: 登録ユーザーの総件数
     type: count
     drill_fields: [detail*]
   }
 
   measure: count_percent_of_total {
-    label: "Count (Percent of Total)"
+    label: ユーザー数全体比 (Percent of Total)
+    description: 全体のユーザー数に対する構成比
     type: percent_of_total
     sql: ${count} ;;
     drill_fields: [detail*]
   }
 
   measure: average_age {
-    label: "Average Age"
+    label: 平均年齢 (Average Age)
+    description: 対象ユーザーの平均年齢
     type: average
     value_format_name: decimal_2
     sql: ${age} ;;

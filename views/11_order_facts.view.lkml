@@ -18,7 +18,8 @@ view: order_facts {
   }
 
   dimension: order_id {
-    label: "Order ID"
+    label: 注文ID
+    description: 注文の識別ID
     type: number
     hidden: yes
     primary_key: yes
@@ -26,20 +27,23 @@ view: order_facts {
   }
 
   dimension: items_in_order {
-    label: "Items in Order"
+    label: 注文内アイテム数 (Items Count)
+    description: 1注文に含まれる商品数
     type: number
     sql: ${TABLE}.items_in_order ;;
   }
 
   dimension: order_amount {
-    label: "Order Amount"
+    label: 注文合計金額 (Order Amount)
+    description: 1注文の総売上金額
     type: number
     value_format_name: usd
     sql: ${TABLE}.order_amount ;;
   }
 
   dimension: order_cost {
-    label: "Order Cost"
+    label: 注文合計コスト (Order Cost)
+    description: 1注文の総仕入コスト
     type: number
     value_format_name: usd
     sql: ${TABLE}.order_cost ;;
@@ -52,13 +56,15 @@ view: order_facts {
   }
 
   dimension: order_sequence_number {
-    label: "Order Sequence Number"
+    label: ユーザー内注文連番 (Order Sequence)
+    description: 該当ユーザーにおける何回目の注文か
     type: number
     sql: ${TABLE}.order_sequence_number ;;
   }
 
   dimension: is_first_purchase {
-    label: "Is First Purchase"
+    label: 初回購入フラグ (Is First Purchase)
+    description: ユーザーの最初の注文かどうか
     type: yesno
     sql: ${order_sequence_number} = 1 ;;
   }
