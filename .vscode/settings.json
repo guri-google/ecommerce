@@ -1,0 +1,7 @@
+{
+    "looker.instanceURL": "https://55321a7f-2e97-475d-9ee2-fe9801ed7c74.looker.app",
+    "looker.clientId": "nRJBkbxwcdyJHrsFq9n6",
+    "looker.clientSecret": "WKVp6KpYm7jY8Y9vbhRSFrVw",
+    "looker.projectId": "ecommerce_demo",
+    "looker.skillsInstallPath": ".agents/skills"
+}
