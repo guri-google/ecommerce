@@ -80,3 +80,9 @@ explore: order_items {
   #   }
   # }
 }
+
+explore: finance {
+  label: "財務予実分析 (Finance Performance)"
+  description: "事業部・拠点別の売上、コスト、利益の予算・実績・達成率・予実差額を分析するExplore"
+}
+
