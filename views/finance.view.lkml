@@ -57,7 +57,7 @@ view: finance {
     sql: ${TABLE}.Application_Market ;;
   }
 
-  ########## Base & Calculated Measures (O列: 今後の正式名称に準拠) ##########
+  ########## Base Measures ##########
 
   measure: count {
     label: "レコード件数"
@@ -67,8 +67,8 @@ view: finance {
   }
 
   measure: total_actual_revenue {
-    label: "総売上高 (実績)"
-    description: "控除を行っていない売上の合計額（実績）。"
+    label: "実績売上高"
+    description: "実際に計上された売上の合計額。"
     type: sum
     value_format_name: usd
     sql: ${TABLE}.Actual_Revenue ;;
@@ -76,8 +76,8 @@ view: finance {
   }
 
   measure: total_budget_revenue {
-    label: "総売上高 (予算)"
-    description: "控除を行っていない売上の合計額（予算）。"
+    label: "予算売上高"
+    description: "計画・予算として設定された目標売上高。"
     type: sum
     value_format_name: usd
     sql: ${TABLE}.Budget_Revenue ;;
@@ -85,8 +85,8 @@ view: finance {
   }
 
   measure: total_actual_cost {
-    label: "売上原価 (実績)"
-    description: "原材料費や工場人件費などの売上原価（実績）。"
+    label: "実績売上原価"
+    description: "原材料費や工場人件費などの売上原価の実績合計。"
     type: sum
     value_format_name: usd
     sql: ${TABLE}.Actual_Cost ;;
@@ -94,8 +94,8 @@ view: finance {
   }
 
   measure: total_budget_cost {
-    label: "売上原価 (予算)"
-    description: "原材料費や工場人件費などの売上原価（予算）。"
+    label: "予算売上原価"
+    description: "計画・予算として設定された売上原価の目標額。"
     type: sum
     value_format_name: usd
     sql: ${TABLE}.Budget_Cost ;;
@@ -103,8 +103,8 @@ view: finance {
   }
 
   measure: total_actual_profit {
-    label: "営業利益 (実績)"
-    description: "売上高から売上原価等を差し引いた営業利益（実績）。"
+    label: "実績営業利益"
+    description: "売上高から売上原価等を差し引いた営業利益の実績額。"
     type: sum
     value_format_name: usd
     sql: ${TABLE}.Actual_Profit ;;
@@ -112,17 +112,19 @@ view: finance {
   }
 
   measure: total_budget_profit {
-    label: "営業利益 (予算)"
-    description: "売上高から売上原価等を差し引いた営業利益（予算）。"
+    label: "予算営業利益"
+    description: "計画・予算として設定された営業利益の目標額。"
     type: sum
     value_format_name: usd
     sql: ${TABLE}.Budget_Profit ;;
     drill_fields: [detail*]
   }
 
+  ########## Calculated Measures ##########
+
   measure: revenue_variance {
-    label: "売上差額 (予算差)"
-    description: "実績売上高 − 予算売上高"
+    label: "売上予実差分"
+    description: "実績売上高から予算売上高を差し引いた予実差額（実績 − 予算）。"
     type: number
     value_format_name: usd
     sql: ${total_actual_revenue} - ${total_budget_revenue} ;;
@@ -130,24 +132,24 @@ view: finance {
   }
 
   measure: revenue_budget_achievement_rate {
-    label: "売上予算比 (予算比)"
-    description: "実績売上高 ÷ 予算売上高 × 100"
+    label: "売上予算達成率"
+    description: "予算売上高に対する実績売上高の達成割合（実績 ÷ 予算）。"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${total_actual_revenue} / NULLIF(${total_budget_revenue}, 0) ;;
   }
 
   measure: cost_variance {
-    label: "売上原価差額 (予算差)"
-    description: "実績売上原価 − 予算売上原価"
+    label: "売上原価予実差分"
+    description: "実績売上原価から予算売上原価を差し引いた予実差額（実績 − 予算）。"
     type: number
     value_format_name: usd
     sql: ${total_actual_cost} - ${total_budget_cost} ;;
   }
 
   measure: profit_variance {
-    label: "営業利益差額 (予算差)"
-    description: "実績営業利益 − 予算営業利益"
+    label: "営業利益予実差分"
+    description: "実績営業利益から予算営業利益を差し引いた予実差額（実績 − 予算）。"
     type: number
     value_format_name: usd
     sql: ${total_actual_profit} - ${total_budget_profit} ;;
@@ -155,24 +157,24 @@ view: finance {
   }
 
   measure: profit_budget_achievement_rate {
-    label: "営業利益予算比 (予算比)"
-    description: "実績営業利益 ÷ 予算営業利益 × 100"
+    label: "営業利益予算達成率"
+    description: "予算営業利益に対する実績営業利益の達成割合（実績 ÷ 予算）。"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${total_actual_profit} / NULLIF(${total_budget_profit}, 0) ;;
   }
 
   measure: actual_cost_rate {
-    label: "売上原価率"
-    description: "売上原価 ÷ 総売上高 × 100"
+    label: "実績売上原価率"
+    description: "実績売上高に対する実績売上原価の比率（実績売上原価 ÷ 実績売上高）。"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${total_actual_cost} / NULLIF(${total_actual_revenue}, 0) ;;
   }
 
   measure: actual_profit_rate {
-    label: "営業利益率"
-    description: "営業利益 ÷ 総売上高 × 100"
+    label: "実績営業利益率"
+    description: "実績売上高に対する実績営業利益の比率（実績営業利益 ÷ 実績売上高）。"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${total_actual_profit} / NULLIF(${total_actual_revenue}, 0) ;;

@@ -102,7 +102,7 @@
     width: 6
     height: 4
 
-  - title: 売上差額 (予算差)
+  - title: 売上予実差分
     name: revenue_variance_single
     model: thelook
     explore: finance
@@ -124,7 +124,7 @@
     width: 6
     height: 4
 
-  - title: 売上予算比 (予算比)
+  - title: 売上予算達成率
     name: revenue_achievement_rate_single
     model: thelook
     explore: finance
@@ -190,7 +190,7 @@
     width: 6
     height: 4
 
-  - title: 営業利益差額 (予算差)
+  - title: 営業利益予実差分
     name: profit_variance_single
     model: thelook
     explore: finance
@@ -212,7 +212,7 @@
     width: 6
     height: 4
 
-  - title: 営業利益予算比 (予算比)
+  - title: 営業利益予算達成率
     name: profit_achievement_rate_single
     model: thelook
     explore: finance
@@ -268,10 +268,10 @@
       orientation: left
       series:
       - id: finance.total_actual_revenue
-        name: 総売上高 (実績)
+        name: 実績売上高
         axisId: finance.total_actual_revenue
       - id: finance.total_budget_revenue
-        name: 総売上高 (予算)
+        name: 予算売上高
         axisId: finance.total_budget_revenue
       showLabels: true
       showValues: true
@@ -281,7 +281,7 @@
       orientation: right
       series:
       - id: finance.revenue_budget_achievement_rate
-        name: 売上予算比 (予算比)
+        name: 売上予算達成率
         axisId: finance.revenue_budget_achievement_rate
       showLabels: true
       showValues: true
